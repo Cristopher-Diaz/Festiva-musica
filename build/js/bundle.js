@@ -1,4 +1,44 @@
 document.addEventListener('DOMContentLoaded', function(){
+    scrollNav();
+
+    navegacionFija();
+})
+
+function scrollNav(){
+    const enlaces = document.querySelectorAll('.navegacion-principal a');
+    
+    enlaces.forEach( function(enlace) {
+        enlace.addEventListener('click', function(e){
+            e.preventDefault();
+            console.log(e.target.attributes.href.value);
+
+            const seccion = document.querySelector(e.target.attributes.href.value);
+
+            seccion.scrollIntoView({
+                behavior:'smooth'
+            });
+        })
+    })
+}
+
+function navegacionFija(){
+
+    const barraNav = document.querySelector('.header')
+
+    //Registrar el intersection observer 
+    const observer = new IntersectionObserver(function(entries){
+        if(entries[0].isIntersecting){
+            console.log('esta visible');
+            barraNav.classList.remove('fijar-nav')
+        }else{
+            console.log('Ya no se ve')
+            barraNav.classList.add('fijar-nav')
+        }
+    });
+    // Elemento a observar
+    observer.observe(document.querySelector('.sobre-festival'))
+}
+document.addEventListener('DOMContentLoaded', function(){
     crearGaleria();
 });
 
